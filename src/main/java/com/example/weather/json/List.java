@@ -1,5 +1,5 @@
 
-package com.example.weather.dto;
+package com.example.weather.json;
 
 import com.google.gson.annotations.Expose;
 
@@ -8,24 +8,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
-public class ListDTO {
+public class List {
     @Expose
     private int dt;
 
     @Expose
-    private MainDTO main;
+    private Main main;
 
     @Expose
-    private java.util.List<WeatherDTO> weather = null;
+    private java.util.List<Weather> weather = null;
 
     @Expose
-    private CloudsDTO clouds;
+    private Clouds clouds;
 
     @Expose
-    private WindDTO wind;
+    private Wind wind;
 
     @Expose
-    private SysDTO sys;
+    private Sys sys;
 
     @Expose
     private String dtTxt;

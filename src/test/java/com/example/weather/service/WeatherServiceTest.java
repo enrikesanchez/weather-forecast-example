@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.weather.dto.ForecastDTO;
+import com.example.weather.json.Forecast;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,7 +18,7 @@ public class WeatherServiceTest {
 	
 	@Test
 	public void shouldReturnWeatherDTOWhenCityUnitDaysProvided() {
-		ForecastDTO forecast = weatherService.getForecast(4014338, TemperatureUnit.CELSIUS, 1);
+		Forecast forecast = weatherService.getForecast(4014338, TemperatureUnit.CELSIUS, 1);
 		assertEquals("Chihuahua", forecast.getCity().getName());
 		assertEquals(1 * 8, forecast.getList().size()); // 8 lines per day
 	}

@@ -1,5 +1,5 @@
 
-package com.example.weather.dto;
+package com.example.weather.json;
 
 import com.google.gson.annotations.Expose;
 
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
-public class CityDTO {
+public class City {
 	@Expose
 	private int id;
 
@@ -16,7 +16,7 @@ public class CityDTO {
 	private String name;
 	
 	@Expose
-	private CoordDTO coord;
+	private Coord coord;
 	
 	@Expose
 	private String country;

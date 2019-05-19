@@ -12,8 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.weather.dto.ForecastDTO;
-import com.google.gson.Gson;
+import com.example.weather.json.Forecast;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,14 +30,10 @@ public class OpenWeatherMapAPITest {
 	
 	@Test
 	public void shouldCreateForecastDTOWhenCityUnitsAndCountProvided() {
-		Gson gson = new Gson();
-		
 		TestRestTemplate testRestTemplate = new TestRestTemplate();
-		ResponseEntity<String> response = testRestTemplate.
-		  getForEntity("http://api.openweathermap.org/data/2.5/forecast?id=4014338&units=metric&cnt=8&APPID=7a147d89f0a5ffb402d041e6623e2778", String.class);
-		  
-		ForecastDTO forecast = gson.fromJson(response.getBody(), ForecastDTO.class);
+		ResponseEntity<Forecast> response = testRestTemplate.
+		  getForEntity("http://api.openweathermap.org/data/2.5/forecast?id=4014338&units=metric&cnt=8&APPID=7a147d89f0a5ffb402d041e6623e2778", Forecast.class);
 		
-		assertNotNull(forecast);
+		assertNotNull(response.getBody());
 	}	
 }

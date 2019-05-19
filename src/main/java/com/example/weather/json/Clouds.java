@@ -1,5 +1,5 @@
 
-package com.example.weather.dto;
+package com.example.weather.json;
 
 import com.google.gson.annotations.Expose;
 
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
-public class CloudsDTO {
+public class Clouds {
     @Expose
     private int all;
 }
