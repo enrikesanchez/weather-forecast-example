@@ -1,4 +1,4 @@
-package com.example.weather.service;
+package com.example.weather.apiservice;
 
 public enum TemperatureUnit {
 	FAHRENHEIT("imperial"),

@@ -1,6 +1,8 @@
-package com.example.weather.service;
+package com.example.weather.apiservice;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -13,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.weather.json.Forecast;
+import com.example.weather.vo.WeatherVO;
 
 @Service
 @PropertySource("classpath:config.properties")
@@ -33,9 +36,16 @@ public class WeatherServiceImpl implements WeatherService {
 	@Value("${openweathermap.appId}")
 	private String appId;	
 	
+	@Value("${images.url.base}")
+	private String imagesBaseUrl;	
+
+	@Value("${images.url.extension}")
+	private String imagesExtension;	
+	
 	@Override
-	public Forecast getForecast(final int cityId, final TemperatureUnit unit, final int days) {
+	public List<WeatherVO> getForecast(final int cityId, final TemperatureUnit unit, final int days) {
 		RestTemplate restTemplate = new RestTemplate();
+		List<WeatherVO> weatherList = new ArrayList<WeatherVO>();
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -53,7 +63,19 @@ public class WeatherServiceImpl implements WeatherService {
 		        entity, 
 		        Forecast.class);
 		
-		return response.getBody();
+		if (null != response) {
+			for (com.example.weather.json.List list : response.getBody().getList()) {
+				WeatherVO weather = new WeatherVO();
+				weather.setTimestamp(list.getDt());
+				weather.setTemperature(list.getMain().getTemp());
+				weather.setDescription(list.getWeather().get(0).getDescription());
+				String imageUrl = imagesBaseUrl + list.getWeather().get(0).getIcon() + imagesExtension; 
+				weather.setImageUrl(imageUrl);
+				weatherList.add(weather);
+			}
+		}
+		
+		return weatherList;
 	}
 
 }

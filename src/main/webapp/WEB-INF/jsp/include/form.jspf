@@ -19,10 +19,10 @@
             <label class="form-check-label">
             	<c:choose>
             		<c:when test="${'metric' eq detaulTemperatureUnit}">
-                        <input type="radio" class="form-check-input" name="unit" checked> Celsius
+                        <input type="radio" class="form-check-input" name="unit" value="CELSIUS" checked> Celsius
             		</c:when>
             		<c:otherwise>
-                        <input type="radio" class="form-check-input" name="unit"> Celsius
+                        <input type="radio" class="form-check-input" name="unit" value="CELSIUS"> Celsius
             		</c:otherwise>
             	</c:choose>
             </label>
@@ -31,10 +31,10 @@
             <label class="form-check-label">
             	<c:choose>
             		<c:when test="${'imperial' eq detaulTemperatureUnit}">
-                		<input type="radio" class="form-check-input" name="unit" checked> Fahrenheit
+                		<input type="radio" class="form-check-input" name="unit" value="FAHRENHEIT" checked> Fahrenheit
             		</c:when>
             		<c:otherwise>
-                		<input type="radio" class="form-check-input" name="unit"> Fahrenheit
+                		<input type="radio" class="form-check-input" name="unit" value="FAHRENHEIT"> Fahrenheit
                 	</c:otherwise>
             	</c:choose>	                    
             </label>
