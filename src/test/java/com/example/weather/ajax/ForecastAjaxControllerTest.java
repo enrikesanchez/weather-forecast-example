@@ -30,14 +30,14 @@ public class ForecastAjaxControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$[0].timestamp", isA(Integer.class)))
-				.andExpect(jsonPath("$[1].timestamp", isA(Integer.class)))
-				.andExpect(jsonPath("$[2].timestamp", isA(Integer.class)))
-				.andExpect(jsonPath("$[3].timestamp", isA(Integer.class)))
-				.andExpect(jsonPath("$[4].timestamp", isA(Integer.class)))
-				.andExpect(jsonPath("$[5].timestamp", isA(Integer.class)))
-				.andExpect(jsonPath("$[6].timestamp", isA(Integer.class)))
-				.andExpect(jsonPath("$[7].timestamp", isA(Integer.class)));
+				.andExpect(jsonPath("$[0].timestamp", isA(String.class)))
+				.andExpect(jsonPath("$[1].timestamp", isA(String.class)))
+				.andExpect(jsonPath("$[2].timestamp", isA(String.class)))
+				.andExpect(jsonPath("$[3].timestamp", isA(String.class)))
+				.andExpect(jsonPath("$[4].timestamp", isA(String.class)))
+				.andExpect(jsonPath("$[5].timestamp", isA(String.class)))
+				.andExpect(jsonPath("$[6].timestamp", isA(String.class)))
+				.andExpect(jsonPath("$[7].timestamp", isA(String.class)));
 	}
 
 }

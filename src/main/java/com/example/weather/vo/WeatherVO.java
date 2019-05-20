@@ -6,8 +6,8 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
 public class WeatherVO {
-	private long timestamp;
-	private double temperature;
+	private String timestamp;
+	private String temperature;
 	private String description;
 	private String imageUrl;
 }

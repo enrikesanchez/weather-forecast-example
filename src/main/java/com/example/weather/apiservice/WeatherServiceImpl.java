@@ -1,5 +1,10 @@
 package com.example.weather.apiservice;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,11 +46,23 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Value("${images.url.extension}")
 	private String imagesExtension;	
+
+	@Value("${forecast.dateformat.input}")
+	private String inputDateFormat;	
+	
+	@Value("${forecast.dateformat.output}")
+	private String outputDateFormat;	
+	
+	@Value("${forecast.temp.numberformat.output}")
+	private String temperatureNumberFormat;	
 	
 	@Override
 	public List<WeatherVO> getForecast(final int cityId, final TemperatureUnit unit, final int days) {
 		RestTemplate restTemplate = new RestTemplate();
 		List<WeatherVO> weatherList = new ArrayList<WeatherVO>();
+		DateFormat outputDf = new SimpleDateFormat(outputDateFormat);
+		DateFormat inputDf = new SimpleDateFormat(inputDateFormat);
+		NumberFormat nf = new DecimalFormat(temperatureNumberFormat);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -65,13 +82,17 @@ public class WeatherServiceImpl implements WeatherService {
 		
 		if (null != response) {
 			for (com.example.weather.json.List list : response.getBody().getList()) {
-				WeatherVO weather = new WeatherVO();
-				weather.setTimestamp(list.getDt());
-				weather.setTemperature(list.getMain().getTemp());
-				weather.setDescription(list.getWeather().get(0).getDescription());
-				String imageUrl = imagesBaseUrl + list.getWeather().get(0).getIcon() + imagesExtension; 
-				weather.setImageUrl(imageUrl);
-				weatherList.add(weather);
+				try {
+					WeatherVO weather = new WeatherVO();
+					weather.setTimestamp(outputDf.format(inputDf.parse(list.getDtTxt())));
+					weather.setTemperature(nf.format(list.getMain().getTemp()));
+					weather.setDescription(list.getWeather().get(0).getDescription());
+					String imageUrl = imagesBaseUrl + list.getWeather().get(0).getIcon() + imagesExtension; 
+					weather.setImageUrl(imageUrl);
+					weatherList.add(weather);
+				} catch (final ParseException pe) {
+					// TODO: Add a log message
+				}
 			}
 		}
 		
